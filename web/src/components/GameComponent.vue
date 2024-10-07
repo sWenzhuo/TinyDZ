@@ -7,7 +7,7 @@
             <img src="https://via.placeholder.com/300" class="card-img-top" alt="商品图片">
             <div class="card-body">
               <h5 class="card-title">贪吃蛇</h5>
-              <p class="card-text">这里是游戏的简单描述。介绍商品的主要功能和优点。</p>
+              <p class="card-text">这里是游戏的简单描述。</p>
               <a href="#" class="btn btn-primary">开始</a>
             </div>
           </div>
@@ -19,7 +19,7 @@
             <img src="https://via.placeholder.com/300" class="card-img-top" alt="商品图片">
             <div class="card-body">
               <h5 class="card-title">五子棋</h5>
-              <p class="card-text">这里是游戏的简单描述。介绍商品的主要功能和优点。</p>
+              <p class="card-text">这里是游戏的简单描述。</p>
               <a href="#" class="btn btn-primary">开始</a>
             </div>
           </div>
@@ -31,7 +31,7 @@
             <img src="https://via.placeholder.com/300" class="card-img-top" alt="商品图片">
             <div class="card-body">
               <h5 class="card-title">大乱斗</h5>
-              <p class="card-text">这里是商品的简单描述。介绍商品的主要功能和优点。</p>
+              <p class="card-text">这里是游戏的简单描述。</p>
               <a href="#" class="btn btn-primary">开始</a>
             </div>
           </div>

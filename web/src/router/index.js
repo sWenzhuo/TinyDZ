@@ -24,7 +24,6 @@ const routes = [
     component: GameView
   },
 
-
   {
     path: '/shop',
     name: 'shop',
@@ -49,7 +48,10 @@ const routes = [
     path:'/user',
     name:'user',
     component:UserDetailView,
-  }
+  },
+
+  //贪吃蛇
+  
 
   
 

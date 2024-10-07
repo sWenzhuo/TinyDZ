@@ -11,7 +11,7 @@
 
 
         <div>
-            <button type="button" class="btn btn-primary" @click="register">登录</button>
+            <button type="button" class="btn btn-primary" @click="login">登录</button>
         </div>
         <div>
             <span>
@@ -26,30 +26,39 @@
   <script>
  import ContentBase from '@/components/ContentBase.vue';
  import { ref } from "vue";
+ import {useStore} from "vuex";
   export default{
     name :"LoginView",
     components:{
         ContentBase
     },
-
     setup()
     {
+        const store = useStore();
         const message = ref("");
-
         const username = ref("");
         const password = ref("");
-        const confirmword = ref("");
-        const register=()=>{
+        const login=()=>{
             
-            message.value = username.value;
+            store.dispatch('login',{username:username.value,password:password.value})
+            .then(
+                response=>{
+                    message.value = response.message;
+                    console.log("登录成功");
+                }
+            )
+            .catch(
+                error=>{
+                    message.value = error.message
+                    console.error(error.message);
+                }
+            )
         }
-
         return {
             username,
             password,
-            confirmword,
             message,
-            register,
+            login,
         }
     }
   
