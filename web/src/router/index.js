@@ -1,9 +1,11 @@
-import { createRouter, createWebHashHistory } from 'vue-router'
+import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import PKListView from '../views/HomeView.vue'
 import GameView from '../views/HomeView.vue'
 import ShopView from '../views/HomeView.vue'
-
+import RegisterView from '@/views/RegisterView.vue'
+import LoginView from '@/views/LoginView.vue'
+import UserDetailView from '@/views/UserDetailView.vue'
 
 const routes = [
   {
@@ -29,10 +31,32 @@ const routes = [
     component: ShopView
   },
 
+
+  {
+    path:'/register',
+    name:'register',
+    component: RegisterView
+  },
+
+  {
+    path:'/login',
+    name:'login',
+    component:LoginView
+  }
+  ,
+
+  {
+    path:'/user',
+    name:'user',
+    component:UserDetailView,
+  }
+
+  
+
   
 ]
 const router = createRouter({
-  history: createWebHashHistory(),
+  history: createWebHistory(),
   routes
 })
 

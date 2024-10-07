@@ -13,9 +13,7 @@ import ContentBase from '@/components/ContentBase.vue';
     name :"PkListView",
     components:{
         ContentBase
-    }
-    
-    
+    } 
   
   }
   </script>
