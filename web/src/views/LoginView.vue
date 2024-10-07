@@ -25,7 +25,7 @@
   
   <script>
  import ContentBase from '@/components/ContentBase.vue';
- import { ref } from "vue";
+ import {ref } from "vue";
  import {useStore} from "vuex";
   export default{
     name :"LoginView",

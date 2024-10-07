@@ -19,22 +19,22 @@
         </li>
 
 
-        <li class="nav-item">
+        <li  v-if="!islogined" class="nav-item">
           <router-link class="nav-link active" :to="{name:'login'}">登录</router-link>
         </li>
 
 
-        <li class="nav-item">
+        <li  v-if="!islogined" class="nav-item">
           <router-link class="nav-link active" :to="{name:'register'}">注册</router-link>
         </li>
 
-        <li class="nav-item dropdown">
+        <li v-else class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            用户
+            {{ username }}
           </a>
           <ul class="dropdown-menu">
             <li><router-link class="dropdown-item" :to="{name:'user'}">主页</router-link></li>
-            <li><a class="dropdown-item" href="#">退出</a></li>
+            <li><a class="dropdown-item" href="#" @click="logout">退出</a></li>
           </ul>
         </li>
       </ul>
@@ -51,9 +51,36 @@
 
 <script>
 
+import { useStore } from 'vuex';
+import { computed } from 'vue';
+import { useRouter } from 'vue-router';
+
+
 export default {
     name:"NavBar",
+    setup()
+    {
+      const store = useStore();
+      const router = useRouter();
+      // 使用 computed 来读取 Vuex store 中的值
+      const username = computed(() => store.getters.userInfo.username);
+      const islogined = computed(() => store.getters.isAuthenticated);
+      const logout=()=>{
+        store.dispatch('logout').then(()=>{
+          router.push({name:'home'});//重定向
+        })
+      }
+
+      return{
+        username,
+        islogined,
+        logout
+      }
+    }
 }
+
+
+
 
 
 </script>
