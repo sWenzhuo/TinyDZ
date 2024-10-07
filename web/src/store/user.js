@@ -18,8 +18,10 @@ const user ={
         }
 
     },
+
+
+
     actions:{
-        
         login({commit},user)
         {
             return new Promise((resolve,reject)=>{
@@ -49,6 +51,50 @@ const user ={
             })
         
         },
+
+
+
+        logout({commit})
+        {
+            commit("setUserInfo",null);
+            commit("setUserAuthenticated",false);
+        },
+
+
+
+        register(userRegister)
+        {
+            return new Promise((resolve,reject)=>{
+                if(userRegister.password!=userRegister.confirmword)
+                {
+                    console.log("两次密码不一致");
+                    reject({
+                        message:"两次密码不一致",
+                        code:401
+                    })
+                }
+                else
+                {
+                    //注册逻辑
+
+                    //自动登录
+
+                    resolve(
+                        {
+                            userid:1
+                        }
+                    )
+
+
+                }
+
+            })
+
+
+
+
+
+        }
     },
     getters:{
         isAuthenticated(state)

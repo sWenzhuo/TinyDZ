@@ -30,6 +30,7 @@
   <script>
  import ContentBase from '@/components/ContentBase.vue';
  import { ref } from "vue";
+ import {useStore} from "vuex";
   export default{
     name :"RegisterView",
     components:{
@@ -39,13 +40,26 @@
     setup()
     {
         const message = ref("");
+        const store = useStore();
 
         const username = ref("");
         const password = ref("");
         const confirmword = ref("");
         const register=()=>{
             
-            message.value = username.value;
+            store.dispatch('register',{username:username.value,password:password.value})
+            .then(
+                response=>{
+                    message.value ="注册成功";
+                    console.log("登录成功"+response.id);
+                }
+            )
+            .catch(
+                error=>{
+                    message.value = error.message
+                    console.error(error.message);
+                }
+            )
         }
 
         return {
