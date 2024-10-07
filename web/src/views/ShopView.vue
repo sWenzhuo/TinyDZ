@@ -1,24 +1,25 @@
 <template>
     <ContentBase>
-      <Products>
-        
-      </Products>
-      
-        
+      <ProductsComponent>
+
+
+
+      </ProductsComponent>
+       
     </ContentBase>
     
 </template>
   
 <script>
 import ContentBase from '@/components/ContentBase.vue';
-import Products from '@/components/Products.vue';
+import ProductsComponent from '@/components/ProductsComponent.vue';
 
 
   export default{
     name :"ShopView",
     components:{
         ContentBase,
-        Products
+        ProductsComponent
     }
   
   }

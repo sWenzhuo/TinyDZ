@@ -1,7 +1,7 @@
 <template>
 
   <ContentBase>
-    homeview
+    fasfsa
   </ContentBase>
   
 </template>
