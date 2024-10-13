@@ -36,8 +36,10 @@
     
   <script>
     export default {
+      
         name:"UserComponent",
         setup(){
+       
           const changeCharacter = () => {
               alert('切换角色功能尚未实现。');
           };

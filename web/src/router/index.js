@@ -50,8 +50,9 @@ const routes = [
     component:UserDetailView,
   },
 
+
   //贪吃蛇
-  
+
 
   
 

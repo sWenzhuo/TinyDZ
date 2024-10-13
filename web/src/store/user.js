@@ -19,8 +19,6 @@ const user ={
 
     },
 
-
-
     actions:{
         login({commit},user)
         {
@@ -34,7 +32,7 @@ const user ={
                     resolve(
                         {
                             message:user.username+"登录成功",
-                            userinfo:user
+                            userinfo:user,
                         }
                     )
                 }
