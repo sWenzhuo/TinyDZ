@@ -69,8 +69,6 @@ public class UserController{
     }
 
 
-
-
     @PostMapping("/register")
     public @ResponseBody Map<String,User>  register(@RequestBody Map<String,Object>registerData) throws Exception {
         String username= registerData.get("username").toString();
