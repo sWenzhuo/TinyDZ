@@ -47,7 +47,7 @@
         const confirmword = ref("");
         const register=()=>{
             
-            store.dispatch('register',{username:username.value,password:password.value})
+            store.dispatch('register',{username:username.value,password:password.value,confirmword:confirmword.value})
             .then(
                 response=>{
                     message.value ="注册成功";
@@ -61,7 +61,6 @@
                 }
             )
         }
-
         return {
             username,
             password,

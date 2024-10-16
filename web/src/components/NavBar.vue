@@ -33,7 +33,7 @@
             {{ username }}
           </a>
           <ul class="dropdown-menu">
-            <li><router-link class="dropdown-item" :to="{name:'user'}">主页</router-link></li>
+            <li><router-link class="dropdown-item" :to="{name:'user',params:{id:userID}}">主页</router-link></li>
             <li><a class="dropdown-item" href="#" @click="logout">退出</a></li>
           </ul>
         </li>
@@ -64,6 +64,7 @@ export default {
       const router = useRouter();
     
       // 使用 computed 来读取 Vuex store 中的值
+      const userID = computed(()=>store.getters.userInfo.id);
       const username = computed(() => store.getters.userInfo.username);
       const islogined = computed(() => store.getters.isAuthenticated);
       const logout=()=>{
@@ -73,6 +74,7 @@ export default {
       }
 
       return{
+        userID,
         username,
         islogined,
         logout,

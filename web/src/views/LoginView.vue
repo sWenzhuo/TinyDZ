@@ -39,13 +39,11 @@
         const username = ref("");
         const password = ref("");
         const login=()=>{
-            
             store.dispatch('login',{username:username.value,password:password.value})
             .then(
                 response=>{
                     message.value = response.message;
                     console.log("登录成功");
-
                 }
             )
             .catch(

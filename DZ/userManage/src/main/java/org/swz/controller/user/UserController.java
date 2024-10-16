@@ -44,6 +44,7 @@ public class UserController{
         {
             //根据sessionID找到user
             User user = userService.readUser(username);
+            System.out.println("session返回user");
             return user;
         }
         else{
@@ -95,6 +96,15 @@ public class UserController{
         }
        return null;
     }
+
+    @GetMapping("user/:id")
+    public @ResponseBody User readUser(@RequestParam("id") String id) throws Exception {
+        Integer userid = Integer.getInteger(id);
+        User user = userService.readUser(userid);
+
+        return user;
+    }
+
 
 
 }
