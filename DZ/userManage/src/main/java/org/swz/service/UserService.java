@@ -13,22 +13,41 @@ public class UserService {
     UserMapper userMapper;
 
 
-    public boolean vaild(String username, String password) {
+    public User vaild(String username, String password) throws Exception {
+        User user = userMapper.getUserByUsername(username);
+        if ((user == null) && user.getPassword().equals(password)) {
+            return null;
+        }
+        else{
+            return user;
 
+        }
+
+    }
+
+    public User isExist(String username) throws Exception {
+        User user = userMapper.getUserByUsername(username);
+        if (user == null) return null;
+        else return user;
     }
 
 
 
     //增加
-    public  void creatUser(String username, String password) {
+    public  String creatUser(String username, String password) {
         try {
             User user = new User();
+            user.setId(null);
             user.setUsername(username);
             user.setPassword(password);
             userMapper.insert(user);
+            //
+            return "注册成功";
         }catch (Exception e){
             e.printStackTrace();
         }
+
+        return "服务器无响应";
     }
 
 
@@ -54,7 +73,18 @@ public class UserService {
         }catch (Exception e){
             e.printStackTrace();
         }
+        return null;
 
+    }
+
+    public User readUser(String username){
+        try {
+            return userMapper.getUserByUsername(username);
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
     }
 
 
