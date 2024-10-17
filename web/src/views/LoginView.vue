@@ -22,7 +22,7 @@
     </ContentBase>
     
   </template>
-  
+
   <script>
  import ContentBase from '@/components/ContentBase.vue';
  import {ref } from "vue";

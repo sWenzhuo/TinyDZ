@@ -1,20 +1,20 @@
 package org.swz.consumer;
 
 
+import com.alibaba.fastjson2.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.swz.mapper.UserMapper;
 import org.swz.pojo.User;
-import org.swz.service.UserService;
 
 import javax.websocket.*;
 import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
 import java.io.IOException;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
-
 
 @Component
 @ServerEndpoint(value="/websocket/{token}")
@@ -28,12 +28,13 @@ public class WebSocketServer {
     private Session session = null; //维护该session
     private static UserMapper userMapper;
 
+    private Game game = null;
+
     //不是单例的，需要定义成独一份的变量
     @Autowired
     public void setUserMapper(UserMapper userMapper) {
         WebSocketServer.userMapper = userMapper;
     }
-
 
     @OnOpen
     public void OnOpen(Session session, @PathParam("token") String token) {
@@ -56,6 +57,19 @@ public class WebSocketServer {
     public void match(){
         System.out.println("开始匹配");
         MatchPool.add(user);
+        while(MatchPool.size() >=2){
+            Iterator<User> it = MatchPool.iterator();
+            User a = it.next(), b = it.next();
+            MatchPool.remove(a);
+            MatchPool.remove(b);
+
+
+
+
+
+
+
+        }
 
 
     }
@@ -74,10 +88,39 @@ public class WebSocketServer {
         }
     }
 
+
+
+    public void StopMatch()
+    {
+        System.out.println("取消匹配");
+        MatchPool.remove(user);
+    }
+
+
+    public void move(Integer direction){
+        if(game.getPlayerA().getId().equals(user.getId())){
+            game.setNextstepA(direction);
+        } else if (game.getPlayerB().getId().equals(user.getId())) {
+            game.setNextstepB(direction);
+        }
+    }
+
+    //处理客户端的输入
     @OnMessage
-    public void OnMessage(String message,@PathParam("token") String token, Session session) {
-        //client向服务端发送消息
-        System.out.println("服务端接受消息");
+    public void OnMessage(String message, Session session) {
+        System.out.println("接收到请求");
+
+        JSONObject data = JSONObject.parseObject(message);
+        String event = data.getString("event");
+
+        if("start-matching".equals(event)){
+            match();
+        }
+        else if("stop-matching".equals(event)){
+            StopMatch();
+        }else if("move".equals(event)){
+            move(data.getInteger("direction"));
+        }
     }
 
 

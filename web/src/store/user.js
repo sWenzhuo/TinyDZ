@@ -8,7 +8,6 @@ const user ={
         };
     },
     mutations:{
-
         setUserInfo(state,userInfo)
         {
             state.userInfo=userInfo;

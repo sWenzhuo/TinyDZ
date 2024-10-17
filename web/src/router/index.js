@@ -6,6 +6,8 @@ import ShopView from '../views/ShopView.vue'
 import RegisterView from '@/views/RegisterView.vue'
 import LoginView from '@/views/LoginView.vue'
 import UserDetailView from '@/views/UserDetailView.vue'
+import SnakeView from "@/views/SnakeView.vue";
+import PkView from "@/views/PkView.vue";
 
 const routes = [
   {
@@ -52,7 +54,17 @@ const routes = [
   },
 
 
-  //贪吃蛇
+  {
+    path:"/pk",
+    name:"pk",
+    component: PkView,
+    children:[
+      {
+        path:"snake",
+        component:SnakeView
+      }
+    ]
+  }
 
 
   
