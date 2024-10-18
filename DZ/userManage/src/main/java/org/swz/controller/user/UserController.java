@@ -97,6 +97,9 @@ public class UserController{
        return null;
     }
 
+
+
+
     @GetMapping("user/:id")
     public @ResponseBody User readUser(@RequestParam("id") String id) throws Exception {
         Integer userid = Integer.getInteger(id);

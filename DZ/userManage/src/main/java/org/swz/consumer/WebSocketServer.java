@@ -1,6 +1,4 @@
 package org.swz.consumer;
-
-
 import com.alibaba.fastjson2.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -63,17 +61,21 @@ public class WebSocketServer {
             MatchPool.remove(a);
             MatchPool.remove(b);
 
+            //发送匹配结果
+            JSONObject respA=new JSONObject();
+            JSONObject respB=new JSONObject();
+            respA.put("event","start_matching");
+            respA.put("opponent_username",b.getUsername());
+            respA.put("opponent_userintroduction",b.getIntroduction());
 
+            respB.put("event","start_matching");
+            respB.put("opponent_username",a.getUsername());
+            respB.put("opponent_userintroduction",a.getIntroduction());
 
-
-
-
-
+            WebSocketServer.sessionPool.get(a.getId()).sendMessage(respA.toJSONString());
+            WebSocketServer.sessionPool.get(b.getId()).sendMessage(respB.toJSONString());
         }
-
-
     }
-
 
     //客户端向服务端发送消息
     public void sendMessage(String message){
@@ -87,7 +89,6 @@ public class WebSocketServer {
 
         }
     }
-
 
 
     public void StopMatch()
@@ -116,7 +117,7 @@ public class WebSocketServer {
         if("start-matching".equals(event)){
             match();
         }
-        else if("stop-matching".equals(event)){
+        else if("cancel-matching".equals(event)){
             StopMatch();
         }else if("move".equals(event)){
             move(data.getInteger("direction"));

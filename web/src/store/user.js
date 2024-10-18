@@ -3,14 +3,27 @@ import $ from "jquery";
 const user ={
     state(){
         return{
-            userInfo:null,
+            userID:null,
+            username:null,
+            userintroduction:null,
+            userphoto:null,
             isAuthenticated:false
         };
     },
     mutations:{
         setUserInfo(state,userInfo)
         {
-            state.userInfo=userInfo;
+            if (userInfo) {
+                state.userID = userInfo.id;
+                state.username = userInfo.username;
+                state.userintroduction = userInfo.introduction;
+                // 可以继续处理其他属性
+            } else {
+                state.userID = null;
+                state.username = null;
+                state.userintroduction = null;
+                state.userphoto = null;
+            }
         },
 
         setUserAuthenticated(state,isAuthenticated)
@@ -33,9 +46,13 @@ const user ={
                     }),
                     success: (response) => {
 
-                        const userinfo = response
+                        const userinfo = response;
+
                         commit('setUserInfo', userinfo);
+
                         commit('setUserAuthenticated', true);
+
+
                         resolve({
                             message: `${userinfo.username} 登录成功`,
                             userinfo: userinfo,
@@ -134,9 +151,21 @@ const user ={
         {
             return state.isAuthenticated;
         },
-        userInfo(state)
+        username(state)
         {
-            return state.userInfo
+            return state.username;
+        },
+        userintroduction(state)
+        {
+            return state.userintroduction;
+        },
+        userphoto(state)
+        {
+            return state.userphoto;
+        },
+        userID(state)
+        {
+            return state.userID;
         }
 
     }

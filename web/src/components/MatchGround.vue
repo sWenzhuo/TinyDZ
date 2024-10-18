@@ -6,7 +6,7 @@
           <img src="@/assets/logo.png" alt="">
         </div>
         <div class="user-username">
-          用户1
+          {{username}}
         </div>
       </div>
       <div class="col-4">
@@ -24,11 +24,11 @@
           <img src="@/assets/logo.png " alt="">
         </div>
         <div class="user-username">
-         用户2
+         {{op_username}}
         </div>
       </div>
       <div class="col-12" style="text-align: center; padding-top: 15vh;">
-        <button class="btn btn-warning btn-lg" type="button" @click="click_match_btn">{{match_btn_info}}</button>
+        <button class="btn btn-warning btn-lg" type="button"  @click="click_match_btn" >{{match_btn_info}}</button>
 <!--        <button @click="click_match_btn" type="button" class="btn btn-warning btn-lg">{{ match_btn_info }}</button>-->
 <!--      </div>-->
     </div>
@@ -38,35 +38,46 @@
 </template>
 
 <script>
-import {useStore} from "vuex";
 import {ref} from "vue";
+import {useStore} from "vuex";
+
 export default {
-  name:"MatchGround",
+  name: "MatchGround",
+
   setup(){
+
+    let match_btn_info = ref("开始匹配");
     const store = useStore();
-    let match_btn_info=ref("开始匹配")
-    const click_match_btn=()=>{
+    const click_match_btn =()=>{
+      //点击按钮开始发信息匹配或者取消匹配
       if(match_btn_info.value==="开始匹配")
       {
-        match_btn_info.value="取消";
-        store.commit("match");
-      }
-      else{
-        store.commit("cancel");
-        match_btn_info.value="开始匹配";
+        //利用socket发送给后端
+        store.state.pk.socket.send(JSON.stringify({
+              event: "start-matching"
+            }
+        ));
 
+        match_btn_info.value="取消";
+
+      }else if(match_btn_info.value==="取消")
+      {
+        //利用socket发送给后端
+        store.state.pk.socket.send(JSON.stringify({
+              event: "cancel-matching"
+            }
+        ));
+        match_btn_info.value="开始匹配";
       }
 
     }
-
-
-
-    return{
+    return {
       click_match_btn,
-      match_btn_info
+      match_btn_info,
+      username:store.state.username,
+      op_username:store.state.pk.opponent_username,
     }
   }
-
 }
 </script>
 

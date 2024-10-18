@@ -64,8 +64,8 @@ export default {
       const router = useRouter();
     
       // 使用 computed 来读取 Vuex store 中的值
-      const userID = computed(()=>store.getters.userInfo.id);
-      const username = computed(() => store.getters.userInfo.username);
+      const userID = computed(()=>store.getters.userID);
+      const username = computed(() => store.getters.username);
       const islogined = computed(() => store.getters.isAuthenticated);
       const logout=()=>{
         store.dispatch('logout').then(()=>{
