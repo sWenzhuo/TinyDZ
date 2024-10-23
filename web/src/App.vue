@@ -16,6 +16,14 @@ import NavBar from './components/NavBar.vue';
   }
 </script>
 
+
+
+
 <style>
+body {
+  background-image: url("@/assets/images/snake/background.jpg");
+  background-size: cover;
+}
+
 
 </style>

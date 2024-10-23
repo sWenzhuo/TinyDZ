@@ -8,6 +8,7 @@ import LoginView from '@/views/LoginView.vue'
 import UserDetailView from '@/views/UserDetailView.vue'
 import SnakeView from "@/views/SnakeView.vue";
 import PkView from "@/views/PkView.vue";
+import KOFPKView from "@/views/KOFPKView.vue";
 
 const routes = [
   {
@@ -53,18 +54,27 @@ const routes = [
     props:true
   },
 
-
   {
     path:"/pk",
     name:"pk",
     component: PkView,
-    children:[
-      {
-        path:"snake",
-        component:SnakeView
-      }
-    ]
+  
+  },
+
+  {
+    path:"/snake",
+    name:"snake",
+    component: SnakeView,
+  
+  },
+
+
+  {
+    path:"/kof",
+    name:"kof",
+    component:KOFPKView,
   }
+
 
 
   
