@@ -1,10 +1,11 @@
 
-const GameObjects=[];
+const GameObjects=[]
 export class AbstractGameObj{
     constructor(){
         //构造函数
-        GameObjects.push(this);//
         //间隔时间
+        GameObjects.push(this);
+
         this.timedelta = 0;
         this.has_called_start =false;
     }

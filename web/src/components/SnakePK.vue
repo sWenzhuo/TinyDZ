@@ -10,19 +10,16 @@
 <script>
 import { GameMap } from '@/assets/script/snake/GameMap';
 import { ref, onMounted } from 'vue';
-
-
-
 export default {
   name:"SnakeView",
   setup() {
       let parent = ref(null);
       let canvas = ref(null);
+    
 
       onMounted(() => {
         console.log("建立地图");
-            new GameMap(canvas.value.getContext('2d'), parent.value)
-
+        new GameMap(canvas.value.getContext('2d'), parent.value);
       });
 
       return {

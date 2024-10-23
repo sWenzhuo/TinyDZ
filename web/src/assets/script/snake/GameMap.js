@@ -1,5 +1,6 @@
 import { AbstractGameObj } from "./AbstractGameObject";
 import {Wall} from "@/assets/script/snake/Wall";
+import { Snake } from "./Snake";
 
 export class GameMap extends AbstractGameObj{
     constructor(ctx,parent){
@@ -16,6 +17,12 @@ export class GameMap extends AbstractGameObj{
         //墙的个数
         this.inner_walls_count =20;
         this.walls = [];
+
+        //蛇
+        this.snakes = [
+            new Snake({id:0,row:this.rows-2,col:1,color:"#4876EC"},this),
+            new Snake({id:1,row:1,col:this.cols-2,color:"#F94848"},this)
+        ]
     }
 
     check_connectivity(g, sx, sy, tx, ty) {
@@ -58,7 +65,6 @@ export class GameMap extends AbstractGameObj{
        
         }
 
-
         //随机化墙
          // 创建随机障碍物
          for (let i = 0; i < this.inner_walls_count / 2; i ++ ) {
@@ -86,6 +92,23 @@ export class GameMap extends AbstractGameObj{
         }
         return true;
     }
+
+    add_listening_events() {
+        this.ctx.canvas.focus();
+
+        const [snake0, snake1] = this.snakes;
+        this.ctx.canvas.addEventListener("keydown", e => {
+            if (e.key === 'w') snake0.set_direction(0);
+            else if (e.key === 'd') snake0.set_direction(1);
+            else if (e.key === 's') snake0.set_direction(2);
+            else if (e.key === 'a') snake0.set_direction(3);
+            else if (e.key === 'ArrowUp') snake1.set_direction(0);
+            else if (e.key === 'ArrowRight') snake1.set_direction(1);
+            else if (e.key === 'ArrowDown') snake1.set_direction(2);
+            else if (e.key === 'ArrowLeft') snake1.set_direction(3);
+        });
+    }
+
 
     start() {
         for (let i = 0; i < 1000; i ++ )
@@ -120,8 +143,7 @@ export class GameMap extends AbstractGameObj{
                 this.ctx.fillRect(c*this.L,r*this.L,this.L,this.L);
 
             }
-       
-
+    
     }
 
 
