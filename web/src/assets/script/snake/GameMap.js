@@ -25,6 +25,20 @@ export class GameMap extends AbstractGameObj{
         ]
     }
 
+
+
+    //两个蛇同时移动才动
+    check_ready()
+    {
+        for(const snake of this.snakes){
+          
+            if(snake.status !=="idle")return false;
+            if(snake.direction ===-1)return false;
+        }
+        return true;
+    }
+
+
     check_connectivity(g, sx, sy, tx, ty) {
         if (sx == tx && sy == ty) return true;
         g[sx][sy] = true;
@@ -37,6 +51,26 @@ export class GameMap extends AbstractGameObj{
         }
 
         return false;
+    }
+
+       //是否合法
+    check_valid(cell) {  // 检测目标位置是否合法：没有撞到两条蛇的身体和障碍物
+        for (const wall of this.walls) {
+            if (wall.r === cell.row && wall.c === cell.col)
+                return false;
+        }
+
+        for (const snake of this.snakes) {
+            let k = snake.cells.length;
+            if (!snake.check_tail_increasing()) {  // 当蛇尾会前进的时候，蛇尾不要判断
+                k -- ;
+            }
+            for (let i = 0; i < k; i ++ ) {
+                if (snake.cells[i].r === cell.row && snake.cells[i].c === cell.col)
+                    return false;
+            }
+        }
+        return true;
     }
 
     create_walls() {
@@ -97,7 +131,9 @@ export class GameMap extends AbstractGameObj{
         this.ctx.canvas.focus();
 
         const [snake0, snake1] = this.snakes;
-        this.ctx.canvas.addEventListener("keydown", e => {
+
+    // this.ctx.canvas
+        window.addEventListener("keydown", e => {
             if (e.key === 'w') snake0.set_direction(0);
             else if (e.key === 'd') snake0.set_direction(1);
             else if (e.key === 's') snake0.set_direction(2);
@@ -113,6 +149,7 @@ export class GameMap extends AbstractGameObj{
     start() {
         for (let i = 0; i < 1000; i ++ )
             if (this.create_walls())break;
+        this.add_listening_events();
     }
 
     update_size() {
@@ -121,10 +158,23 @@ export class GameMap extends AbstractGameObj{
         this.ctx.canvas.height = this.L * this.rows;
     }
 
+
+    next_step(){
+
+        for(const snake of this.snakes)snake.next_step();
+    }
+
     update(){
         this.update_size();//动态调整大小
+
+        if(this.check_ready())
+        {
+            this.next_step();
+        }
         this.render();
     }
+
+    
 
     render(){
         //画地图
