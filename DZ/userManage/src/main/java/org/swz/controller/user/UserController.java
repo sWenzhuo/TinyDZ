@@ -1,14 +1,19 @@
 package org.swz.controller.user;
 
 
+import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.swz.mapper.UserMapper;
 import org.swz.pojo.User;
 import org.swz.service.UserService;
+import org.swz.service.acount.LoginImpl;
+import org.swz.service.acount.RegisterImpl;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -16,98 +21,52 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("user")
-public class UserController{
+public class UserController {
     @Autowired
-    private UserService userService;
-    @PostMapping("/login")
-    public @ResponseBody User login(@RequestBody Map<String,Object>loginData , HttpServletRequest request, HttpServletResponse response, HttpSession session) throws Exception {
-        //在客户端的cookie中查找sessionID如果已经登录则直接登录
-        String username = loginData.get("username").toString();
-        String password = loginData.get("password").toString();
-        Cookie[] cookies = request.getCookies();
-        String sid = null;
-        if(cookies != null)
-        {
-            for(Cookie cookie : cookies)
-            {
-                if(cookie.getName().equals("sessionId")){
-                    sid=cookie.getValue();
-                    break;
-                }
-            }
-        }
-        if(sid!=null&&sid.equals(session.getId()))
-        {
-            //根据sessionID找到user
-            User user = userService.readUser(username);
-            System.out.println("session返回user");
-            return user;
-        }
-        else{
-            //验证用户名和密码
-            User filterUser =userService.vaild(username,password);
-            if(filterUser!=null)
-            {
-                session.setMaxInactiveInterval(60*60);
-                session.setAttribute("username", username);
-                Cookie cookie = new Cookie("sessionId",session.getId());
-                cookie.setHttpOnly(true); // 防止XSS攻击
-                cookie.setPath("/"); // 设置cookie的作用路径
-                response.addCookie(cookie); // 将cookie添加到响应中
+    private UserMapper userMapper;
 
-                //得到user
-                return filterUser;
-            }
-            else{
-                System.out.println("用户不存在或者用户名或者密码不正确!");
-                return null;
-            }
-        }
+    @Autowired
+    private RegisterImpl registerImpl;
+
+    @Autowired
+    private LoginImpl loginImpl;
+
+
+    @PostMapping("/user/login/")
+    public Map<String,String>login(@RequestParam String username, @RequestParam String password){
+        Map<String, String> loginuser = loginImpl.login(username, password);
+        return loginuser;
+    }
+
+    @GetMapping("/user/all/")
+    public List<User> getAllUser() {
+        return userMapper.selectList(null);
+    }
+
+    @GetMapping("/user/{userId}/")
+    public User getUserById(@PathVariable int userId) {
+        return userMapper.selectById(userId);
     }
 
 
-    @PostMapping("/register")
-    public @ResponseBody Map<String,User>  register(@RequestBody Map<String,Object>registerData) throws Exception {
-        String username= registerData.get("username").toString();
-        String password= registerData.get("password").toString();
-        String confirmPassword= registerData.get("confirmPassword").toString();
-        if(password.equals(confirmPassword)){
-            //验证用户名是否唯一
-            User user = userService.isExist(username);
-
-            if(user==null)
-            {
-                String message = userService.creatUser(username,password);
-                Map<String,User> map = new HashMap<>();
-                User res  = userService.readUser(username);
-                map.put(message,res);
-                return  map;
-
-            }
-            else{
-                Map<String,User> map = new HashMap<>();
-                map.put("用户名已经存在",null);
-                return map;
-            }
-        }
-       return null;
+    @PostMapping("/user/add/")
+    public String addUser(@RequestParam String username,@RequestParam String password,@RequestParam String confirmedPassword) {
+        Map<String, String> register = registerImpl.register(username, password, confirmedPassword);
+        return register.get("error_message");
     }
 
 
 
-
-    @GetMapping("user/:id")
-    public @ResponseBody User readUser(@RequestParam("id") String id) throws Exception {
-        Integer userid = Integer.getInteger(id);
-        User user = userService.readUser(userid);
-
-        return user;
+    @GetMapping("/user/delete/{userId}/")
+    public String deleteUser(@PathVariable int userId) {
+        userMapper.deleteById(userId);
+        return "删除成功";
     }
-
-
 
 }
+
+

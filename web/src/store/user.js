@@ -96,7 +96,7 @@ const user ={
                 {
                     //注册逻辑
                     $.ajax({
-                        url: "http://localhost:8081/user/register",
+                        url: "http://localhost:8081/user/add",
                         type: "POST",
                         contentType: "application/json",
                         data: JSON.stringify({
@@ -107,7 +107,7 @@ const user ={
                         success: (response) => {
                      
                             // 检查响应中是否存在 "注册成功" 字段
-                            if (response && response["注册成功"]) {
+                            if (response && response["error_message"]=="success") {
                                     const userinfo = response["注册成功"];
                                     console.log("用户信息:", userinfo);
         
