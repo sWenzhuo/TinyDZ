@@ -22,10 +22,10 @@ public class UserController {
     @Autowired
     private LoginImpl loginImpl;
 
-
     @PostMapping("/user/login/")
-    public Map<String,String>login(@RequestParam String username, @RequestParam String password){
-
+    public Map<String,String>login(@RequestBody Map<String,String> userLogin){
+        String username = userLogin.get("username");
+        String password = userLogin.get("password");
         Map<String, String> loginuser = loginImpl.login(username, password);
         return loginuser;
     }
@@ -35,15 +35,23 @@ public class UserController {
         return userMapper.selectList(null);
     }
 
+
+
     @GetMapping("/user/{userId}/")
     public User getUserById(@PathVariable int userId) {
         return userMapper.selectById(userId);
     }
 
 
+
     @PostMapping("/user/add/")
-    public String addUser(@RequestParam String username,@RequestParam String password,@RequestParam String confirmedPassword) {
-        Map<String, String> register = registerImpl.register(username, password, confirmedPassword);
+    public String addUser(@RequestBody Map<String,Object> userRegisterInfo) {
+        String username =(String)userRegisterInfo.get("username");
+        String password =(String)userRegisterInfo.get("password");
+        String confirmedPassword =(String)userRegisterInfo.get("confirmPassword");
+        System.out.println(confirmedPassword);
+
+        Map<String, String> register = registerImpl.register(username, password,confirmedPassword);
         return register.get("error_message");
     }
 

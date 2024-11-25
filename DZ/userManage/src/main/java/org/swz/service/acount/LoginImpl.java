@@ -18,8 +18,6 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-
-
 @Service
 public class LoginImpl implements Login, UserDetailsService {
 
@@ -34,13 +32,11 @@ public class LoginImpl implements Login, UserDetailsService {
     @Override
     public Map<String, String> login(String account, String pwd) {
 
-
         UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(account, pwd);
         Authentication authentication = authenticationManager.authenticate(usernamePasswordAuthenticationToken);
 
         System.out.println(authentication);
         UserDetailsImpl loginUser = (UserDetailsImpl) authentication.getPrincipal();
-
 
         User user = loginUser.getUser();
         String jwt = JwtUtil.createJWT(user.getId().toString());
@@ -54,6 +50,7 @@ public class LoginImpl implements Login, UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userMapper.getUserByUsername(username);
+        System.out.println(user);
         if (user == null) {
             throw new UsernameNotFoundException("User not found");
         }
