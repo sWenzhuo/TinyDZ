@@ -18,7 +18,13 @@ export class GameMap extends GameObject{
         <div class="kof-head-hp-1"><div></div></div>
     </div>`)
         this.timeLeft = 600000;
-        this.$timer = this.root.$kof.find(`.kof-head-timer`)
+        this.$timer = this.root.$kof.find(`.kof-head-timer`);
+         // 设置父容器的背景为 GIF
+         this.root.$kof.css({
+            'background-image': 'url("path/to/your/background.gif")',  // GIF 背景路径
+            'background-size': 'cover', // 背景自动缩放
+            'background-position': 'center', // 背景居中
+        });
 
         this.backgroundGif = new Image();
         this.backgroundGif.src =require(`@/assets/images/KOF/background/0.gif`);

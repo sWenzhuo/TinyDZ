@@ -34,13 +34,12 @@ public class SecurityonConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and().authorizeRequests()
-                .antMatchers("/user/account/token","/user/account/register","/user/add","/user/login").permitAll()
+                .antMatchers("/user/account/token/","/user/account/register/","/user/add/","/user/login/").permitAll()
                 .antMatchers(HttpMethod.OPTIONS).permitAll()
                 .anyRequest().authenticated();
 
         http.addFilterBefore(jwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class);
     }
-
 
 
     @Bean

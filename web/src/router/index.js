@@ -5,10 +5,11 @@ import GameView from '../views/GameView.vue'
 import ShopView from '../views/ShopView.vue'
 import RegisterView from '@/views/RegisterView.vue'
 import LoginView from '@/views/LoginView.vue'
-import UserDetailView from '@/views/UserDetailView.vue'
+// import UserDetailView from '@/views/UserDetailView.vue'
 import SnakeView from "@/views/SnakeView.vue";
 import PkView from "@/views/PkView.vue";
 import KOFPKView from "@/views/KOFPKView.vue";
+import UserInfoView from '@/views/UserInfoView.vue'
 
 const routes = [
   {
@@ -50,7 +51,7 @@ const routes = [
   {
     path:'/user/:id',
     name:'user',
-    component:UserDetailView,
+    component:UserInfoView,
     props:true
   },
 

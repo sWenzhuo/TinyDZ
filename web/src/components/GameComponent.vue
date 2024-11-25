@@ -8,7 +8,7 @@
             <div class="card-body">
               <h5 class="card-title">贪吃蛇</h5>
               <p class="card-text">这里是游戏的简单描述。</p>
-              <a href="#" class="btn btn-primary">开始</a>
+              <router-link class="btn btn-primary" :to="{name:'pk'}">开始</router-link>
             </div>
           </div>
         </div>
@@ -20,7 +20,7 @@
             <div class="card-body">
               <h5 class="card-title">五子棋</h5>
               <p class="card-text">这里是游戏的简单描述。</p>
-              <a href="#" class="btn btn-primary">开始</a>
+              <router-link class="btn btn-primary" :to="{name:'pk'}">开始</router-link>
             </div>
           </div>
         </div>
@@ -32,7 +32,7 @@
             <div class="card-body">
               <h5 class="card-title">大乱斗</h5>
               <p class="card-text">这里是游戏的简单描述。</p>
-              <a href="#" class="btn btn-primary">开始</a>
+              <router-link class="btn btn-primary" :to="{name:'pk'}">开始</router-link>
             </div>
           </div>
         </div>

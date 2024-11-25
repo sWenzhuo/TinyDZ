@@ -1,6 +1,6 @@
 <template>
       <div class="container">
-        <div class="card">
+        <div class="card"  style="opacity: 0.6;">
           <div class="card-body">
             <slot></slot>
           </div>
@@ -17,7 +17,7 @@
   
   <style scoped>
   .container {
-    margin-top: 20px;
+    margin-top: 5px;
   }
   </style>
   

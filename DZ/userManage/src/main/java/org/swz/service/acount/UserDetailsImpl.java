@@ -7,6 +7,9 @@ import org.swz.pojo.User;
 import java.util.Collection;
 import java.util.Collections;
 
+
+
+//返回的一个userdetailsImpl对象
 public class UserDetailsImpl implements UserDetails {
 
 

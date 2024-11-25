@@ -71,6 +71,7 @@ export default {
       }
 
     }
+    console.log(store.state.username);
     return {
       click_match_btn,
       match_btn_info,

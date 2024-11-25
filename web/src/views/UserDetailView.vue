@@ -1,8 +1,7 @@
 <template>
     <UserComponent>
     </UserComponent>
-    
-
+  
     
   </template>
   

@@ -37,7 +37,7 @@ const user ={
         {
             return new Promise((resolve,reject)=>{
                 $.ajax({
-                    url: "http://localhost:8081/user/login",
+                    url: "http://localhost:8081/user/login/",
                     type: "POST",
                     contentType: "application/json",
                     data: JSON.stringify({
@@ -51,7 +51,6 @@ const user ={
                         commit('setUserInfo', userinfo);
 
                         commit('setUserAuthenticated', true);
-
 
                         resolve({
                             message: `${userinfo.username} 登录成功`,

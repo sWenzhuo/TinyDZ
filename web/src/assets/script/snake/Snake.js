@@ -68,7 +68,6 @@ export class Snake extends AbstractGameObj{
             this.status = "die";
         }
 
-
     }
 
 
