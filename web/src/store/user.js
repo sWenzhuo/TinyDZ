@@ -6,6 +6,7 @@ const user ={
             userID:null,
             username:null,
             userintroduction:null,
+            isAuthenticated:false
         };
     },
     mutations:{

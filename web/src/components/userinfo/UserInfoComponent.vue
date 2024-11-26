@@ -31,33 +31,18 @@
 </template>
 
 <script>
+import $ from "jquery";
+import {useStore} from "vuex";
 
   export default {
       name:"UserInfoComponent",
 
       setup(){
-        //根据jwt找到用户相关信息
-        const token = localStorage.getItem("token");
-        $.ajax({
-                url: "http://localhost:8081/user/info",
-                type: "GET",
-                contentType: "application/json",
-                headers:{
-                    'Authorization': `Bearer ${token}`
-                },
-                success: (response) => {
 
-                },
-                error: (xhr) => {
-                            
-                    }
-                })
+
+
         return {
-            username,
-            friend_nums,
-            bot_nums,
-            user_photo,
-            user_coming
+
         }
     }
 
