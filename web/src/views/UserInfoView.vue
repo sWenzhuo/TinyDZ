@@ -26,7 +26,10 @@
             <div class="col-7">
                 <div class="card">
                     <div class="card-body">
-                        This is some text within a card body.
+                        <UserDetailsInfo v-if="current === 'info' "></UserDetailsInfo>
+                        <UserDetailsModify v-else-if="current === 'modify'"></UserDetailsModify>
+                        <BotList v-else-if="current === 'bots'"></BotList>
+                        <FriendsComponent v-else-if="current === 'friends'"></FriendsComponent>
                     </div>
                 </div>
 
@@ -40,6 +43,10 @@
   
 <script>
 import ContentBase from '@/components/ContentBase.vue';
+import BotList from '@/components/userinfo/BotList.vue';
+import FriendsComponent from '@/components/userinfo/FriendsComponent.vue';
+import UserDetailsInfo from '@/components/userinfo/UserDetailsInfo.vue';
+import UserDetailsModify from '@/components/userinfo/UserDetailsModify.vue';
 import UserInfoComponent from '@/components/userinfo/UserInfoComponent.vue';
 import UserInfoFlatten from '@/components/userinfo/UserInfoFlatten.vue';
 
@@ -48,8 +55,20 @@ import UserInfoFlatten from '@/components/userinfo/UserInfoFlatten.vue';
     components:{
         ContentBase,
         UserInfoComponent,
-        UserInfoFlatten
-    } 
+        UserInfoFlatten,
+        UserDetailsInfo,
+        UserDetailsModify,
+        BotList,
+        FriendsComponent
+    }, 
+    setup(){
+        return {
+            current:"friends"
+        }
+
+
+        
+    }
   
   }
   </script>

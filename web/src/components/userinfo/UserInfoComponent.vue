@@ -5,7 +5,7 @@
                 <div class="text-center">
                     <img src="./logo.png" class="img-thumbnail custom-img" alt="这里是头像">
                 </div>
-                <div class="text-center">用户名</div>
+                <div class="text-center">{{username}}</div>
             </div>
             <div class="row-2">
                 <div class="text-center">
@@ -15,8 +15,8 @@
             </div>
             <div class="row-2">
                 <div class="text-center">
-                    <div>好友数目 100</div>
-                    <div>bot数目 100</div>
+                    <div>好友数目 {{friends_num}}</div>
+                    <div>bot数目 {{bots_num}}</div>
                 </div>
             </div>
 
@@ -31,17 +31,26 @@
 </template>
 
 <script>
-import $ from "jquery";
 import {useStore} from "vuex";
 
-  export default {
+export default {
       name:"UserInfoComponent",
 
       setup(){
+        const store = useStore();
+        const username =store.getters.username;
+        const friends_num = store.getters.friends_num;
+        const bots_num = store.getters.bots_num;
 
 
+
+        console.log(username)
 
         return {
+          username,
+          friends_num,
+          bots_num,
+
 
         }
     }

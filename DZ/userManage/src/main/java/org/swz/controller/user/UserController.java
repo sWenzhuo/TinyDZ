@@ -40,6 +40,7 @@ public class UserController {
 
     @GetMapping("/user/{userId}/")
     public User getUserById(@PathVariable int userId) {
+
         return userMapper.selectById(userId);
     }
 
@@ -55,6 +56,9 @@ public class UserController {
         Map<String, String> register = registerImpl.register(username, password,confirmedPassword);
         return register.get("error_message");
     }
+
+
+
 
 
 

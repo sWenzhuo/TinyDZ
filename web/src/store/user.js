@@ -6,7 +6,13 @@ const user ={
             userID:null,
             username:null,
             userintroduction:null,
-            isAuthenticated:false
+            userphoto:null,
+            friends_num:null,
+            bots_num:null,
+            friends:null,
+            bots:null,
+            isAuthenticated:false,
+
         };
     },
     mutations:{
@@ -16,6 +22,9 @@ const user ={
                 state.userID = userInfo.userId;
                 state.username = userInfo.username;
                 state.userintroduction = userInfo.userintroduction;
+                state.userphoto = userInfo.userphoto;
+                state.friends = userInfo.friends;
+                state.bots = userInfo.bots;
                 // 可以继续处理其他属性
             } else {
                 state.userID = null;
@@ -169,7 +178,24 @@ const user ={
         userID(state)
         {
             return state.userID;
+        },
+        friends(state)
+        {
+            return state.friends;
+        },
+        bots(state){
+            return state.bots;
+        },
+        friends_num(){
+
+            return 1;
+        },
+        bots_num()
+        {
+            return 1;
         }
+
+
 
     }
 };

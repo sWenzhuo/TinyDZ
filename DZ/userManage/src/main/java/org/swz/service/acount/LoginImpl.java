@@ -48,6 +48,12 @@ public class LoginImpl implements Login {
         map.put("userId", user.getId().toString());
         map.put("username", user.getUsername());
         map.put("userintroduction",user.getIntroduction());
+        map.put("userphoto",user.getIntroduction());
+        map.put("friends",user.getId().toString());
+        map.put("bots",user.getId().toString());
+
+
+
         map.put("error_message", "success");
         map.put("token", jwt);
         return map;
