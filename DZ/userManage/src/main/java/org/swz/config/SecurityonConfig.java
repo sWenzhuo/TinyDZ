@@ -15,18 +15,21 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.swz.config.filter.JwtAuthenticationTokenFilter;
+import org.swz.service.acount.MyUserDetailsService;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityonConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
+    private MyUserDetailsService myUserDetailsService;
+
+    @Autowired
     private JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication()
-                .withUser("swz").password(passwordEncoder().encode("swz13145")).roles("ADMIN");
+        auth.userDetailsService(myUserDetailsService).passwordEncoder(passwordEncoder());
     }
 
     @Override
@@ -34,7 +37,7 @@ public class SecurityonConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and().authorizeRequests()
-                .antMatchers("/user/account/token/","/user/account/register/","/user/add/","/user/login/").permitAll()
+                .antMatchers("/user/add/","/user/login/").permitAll()
                 .antMatchers(HttpMethod.OPTIONS).permitAll()
                 .anyRequest().authenticated();
 

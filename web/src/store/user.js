@@ -6,17 +6,15 @@ const user ={
             userID:null,
             username:null,
             userintroduction:null,
-            userphoto:null,
-            isAuthenticated:false
         };
     },
     mutations:{
         setUserInfo(state,userInfo)
         {
             if (userInfo) {
-                state.userID = userInfo.id;
+                state.userID = userInfo.userId;
                 state.username = userInfo.username;
-                state.userintroduction = userInfo.introduction;
+                state.userintroduction = userInfo.userintroduction;
                 // 可以继续处理其他属性
             } else {
                 state.userID = null;
@@ -47,10 +45,15 @@ const user ={
                     success: (response) => {
 
                         const userinfo = response;
+                        console.log(userinfo);
 
                         commit('setUserInfo', userinfo);
 
                         commit('setUserAuthenticated', true);
+
+                        //存储jwt
+                        localStorage.setItem('token',userinfo.token);
+                        
 
                         resolve({
                             message: `${userinfo.username} 登录成功`,
@@ -69,14 +72,11 @@ const user ={
         },
 
 
-
         logout({commit})
         {
             commit("setUserInfo",null);
             commit("setUserAuthenticated",false);
         },
-
-
 
         register({commit},userRegister)
         {

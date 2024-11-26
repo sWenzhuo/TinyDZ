@@ -19,7 +19,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Service
-public class LoginImpl implements Login, UserDetailsService {
+public class LoginImpl implements Login {
 
     @Autowired
     private AuthenticationManager authenticationManager;
@@ -33,6 +33,7 @@ public class LoginImpl implements Login, UserDetailsService {
     public Map<String, String> login(String account, String pwd) {
 
         UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(account, pwd);
+
         Authentication authentication = authenticationManager.authenticate(usernamePasswordAuthenticationToken);
 
         System.out.println(authentication);
@@ -42,18 +43,14 @@ public class LoginImpl implements Login, UserDetailsService {
         String jwt = JwtUtil.createJWT(user.getId().toString());
 
         Map<String, String> map = new HashMap<>();
+        //返回user信息
+
+        map.put("userId", user.getId().toString());
+        map.put("username", user.getUsername());
+        map.put("userintroduction",user.getIntroduction());
         map.put("error_message", "success");
         map.put("token", jwt);
         return map;
     }
 
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userMapper.getUserByUsername(username);
-        System.out.println(user);
-        if (user == null) {
-            throw new UsernameNotFoundException("User not found");
-        }
-        return new UserDetailsImpl(user);
-    }
 }

@@ -9,6 +9,4 @@ import org.swz.pojo.User;
 public interface UserMapper extends BaseMapper<User> {
 
 
-    @Select("select * from user where username=#{username}")
-    public User getUserByUsername(String username);
 }
