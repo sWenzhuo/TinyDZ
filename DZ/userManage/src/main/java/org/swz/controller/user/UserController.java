@@ -1,16 +1,11 @@
 package org.swz.controller.user;
-
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.swz.mapper.UserMapper;
-import org.swz.pojo.User;
-import org.swz.service.acount.LoginImpl;
-import org.swz.service.acount.RegisterImpl;
-import org.swz.service.acount.UserDetailsImpl;
-import org.swz.service.acount.UserInfoImpl;
+import org.swz.service.acount.accountImpl.LoginImpl;
+import org.swz.service.acount.accountImpl.RegisterImpl;
+import org.swz.service.acount.accountImpl.UserInfoImpl;
 
-import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -57,15 +52,6 @@ public class UserController {
     }
 
 
-
-
-
-
-    @GetMapping("/user/delete/{userId}/")
-    public String deleteUser(@PathVariable int userId) {
-        userMapper.deleteById(userId);
-        return "删除成功";
-    }
 
 }
 

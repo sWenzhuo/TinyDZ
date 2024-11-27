@@ -9,7 +9,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 import org.swz.mapper.UserMapper;
 import org.swz.pojo.User;
-import org.swz.service.acount.UserDetailsImpl;
+import org.swz.service.acount.accountImpl.UserDetailsImpl;
 import org.swz.utils.JwtUtil;
 
 import javax.servlet.FilterChain;
