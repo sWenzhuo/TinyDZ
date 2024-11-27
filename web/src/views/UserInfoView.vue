@@ -63,7 +63,7 @@ import UserInfoFlatten from '@/components/userinfo/UserInfoFlatten.vue';
     }, 
     setup(){
         return {
-            current:"friends"
+            current:"modify"
         }
 
 

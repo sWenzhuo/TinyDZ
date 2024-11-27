@@ -9,7 +9,7 @@ import java.util.Collections;
 
 
 
-//返回的一个userdetailsImpl对象
+//返回的一个userdetailsImpl对象，适配spring security
 public class UserDetailsImpl implements UserDetails {
 
 

@@ -7,6 +7,8 @@ import org.swz.mapper.UserMapper;
 import org.swz.pojo.User;
 import org.swz.service.acount.LoginImpl;
 import org.swz.service.acount.RegisterImpl;
+import org.swz.service.acount.UserDetailsImpl;
+import org.swz.service.acount.UserInfoImpl;
 
 import java.util.List;
 import java.util.Map;
@@ -22,6 +24,9 @@ public class UserController {
     @Autowired
     private LoginImpl loginImpl;
 
+    @Autowired
+    private UserInfoImpl userInfoImpl;
+
     @PostMapping("/user/login/")
     public Map<String,String>login(@RequestBody Map<String,String> userLogin){
         String username = userLogin.get("username");
@@ -31,17 +36,11 @@ public class UserController {
         return loginuser;
     }
 
-    @GetMapping("/user/all/")
-    public List<User> getAllUser() {
-        return userMapper.selectList(null);
-    }
 
-
-
-    @GetMapping("/user/{userId}/")
-    public User getUserById(@PathVariable int userId) {
-
-        return userMapper.selectById(userId);
+    @GetMapping("/user/")
+    public Map<String, String> getUserInfo() {
+        //使用jwt token
+        return userInfoImpl.getinfo();
     }
 
 

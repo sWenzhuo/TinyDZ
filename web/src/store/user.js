@@ -73,7 +73,7 @@ const user ={
                     error: (xhr) => {
                         // 登录失败
                         reject({
-                            message: "用户名或者密码错误",
+                            message: "服务器无响应",
                             code: xhr.status
                         });
                     }

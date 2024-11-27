@@ -15,4 +15,11 @@ public class User {
     private String username;
     private String password;
     private String introduction;
+    private String userphoto;
+    private Integer usergrade;
+
+    public User(Object o, String username, String encodedPassword) {
+        this.username = username;
+        this.password = encodedPassword;
+    }
 }
