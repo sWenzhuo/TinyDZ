@@ -50,11 +50,11 @@ public class WebSocketServer {
         }
     }
 
+
     public void match(){
         System.out.println("开始匹配");
         MatchPool.add(user);
-
-        //如果大于2，则加入锁
+        //如果大于2可以调用匹配系统
 
         while(MatchPool.size() >=2){
             Iterator<User> it = MatchPool.iterator();
@@ -82,7 +82,7 @@ public class WebSocketServer {
         }
     }
 
-    //客户端向服务端发送消息
+    //服务端向客户端发消息
     public void sendMessage(String message){
         //异步通信
         synchronized (this.session){
@@ -114,6 +114,7 @@ public class WebSocketServer {
     //处理客户端的输入
     @OnMessage
     public void OnMessage(String message, Session session) {
+        //当做一个路由
         System.out.println("接收到请求");
 
         JSONObject data = JSONObject.parseObject(message);
