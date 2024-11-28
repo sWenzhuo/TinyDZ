@@ -48,6 +48,8 @@ public class FocusInterfaceImpl implements FocusInterface {
     //关注某个用户
     @Override
     public Map<String, Object> focus(String focusid) {
+        //查找用户id是否存在
+
         return Collections.emptyMap();
     }
 

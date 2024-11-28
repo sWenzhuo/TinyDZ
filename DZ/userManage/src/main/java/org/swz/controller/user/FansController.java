@@ -44,7 +44,14 @@ public class FansController {
 
     @GetMapping("/user/fansnum/")
     public String fansNum() {
-        return null;
+        Map<String, Object> fansNum = fanImpl.getFansNum();
+        if(fansNum.get("error_message").equals("success")){
+            return fansNum.get("fansnum").toString();
+        }
+        else{
+            return null;
+        }
+
     }
 
 
@@ -100,14 +107,14 @@ public class FansController {
     }
 
     //关注
-    @GetMapping("/user/focus/")
+    @GetMapping("/user/focus/{focusid}")
     public Map<String, Object> Focus(String focusid) {
         return null;
     }
 
 
     //取消关注
-    @GetMapping("/user/cancelFocus/")
+    @GetMapping("/user/cancelFocus/{focusid}")
     public Map<String, Object> CancelFocus(String focusid) {
         return null;
     }

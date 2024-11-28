@@ -38,7 +38,7 @@ public class FanImpl implements FanInterface {
         Map<String, Object> map = new HashMap<String, Object>();
 
         map.put("error_message","success");
-        map.put("focuslist", fans);
+        map.put("fanslist", fans);
         return map;
         //搜索专注列表
     }
@@ -48,8 +48,8 @@ public class FanImpl implements FanInterface {
         User user = getJwtUser.getUser();
         Integer id = user.getId();
         QueryWrapper<Focus> queryWrapper = new QueryWrapper<Focus>()
-                .select("focusid")
-                .eq("userid", id);
+                .select("userid")
+                .eq("focusid", id);
 
         Long count = focusMapper.selectCount(queryWrapper);
 

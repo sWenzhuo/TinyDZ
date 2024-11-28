@@ -17,8 +17,6 @@ import java.util.concurrent.ConcurrentHashMap;
 @Component
 @ServerEndpoint(value="/websocket/{token}")
 public class WebSocketServer {
-
-
     private User user;
     //对于每一个客户端都有一个websocket连接，维护所有的链接,根据用户的id给对应的连接发请求
     private static final ConcurrentHashMap<Integer, WebSocketServer> sessionPool = new ConcurrentHashMap<>(); //所有实例共用map,但是在不同线程中，所以需要是线程安全的
@@ -55,6 +53,9 @@ public class WebSocketServer {
     public void match(){
         System.out.println("开始匹配");
         MatchPool.add(user);
+
+        //如果大于2，则加入锁
+
         while(MatchPool.size() >=2){
             Iterator<User> it = MatchPool.iterator();
             User a = it.next(), b = it.next();
@@ -122,8 +123,10 @@ public class WebSocketServer {
             match();
         }
         else if("cancel-matching".equals(event)){
+
             StopMatch();
         }else if("move".equals(event)){
+
             move(data.getInteger("direction"));
         }
     }
