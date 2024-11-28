@@ -63,6 +63,8 @@ const user ={
 
                         //存储jwt
                         localStorage.setItem('token',userinfo.token);
+
+                        console.log(userinfo.token);
                         
 
                         resolve({

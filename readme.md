@@ -67,3 +67,4 @@ public class SecurityonConfig extends WebSecurityConfigurerAdapter {
 2，jwt的运用
 在前端，所有的页面都需要维护用户状态，这里可以使用store维护用户的状态，然后所有页面引入store即可。
 
+3,如何做到商品数量和商品信息数据库查询只查询一次?

@@ -12,14 +12,14 @@ public class UserFriendsController {
 
 
     //查看用户的所有好友
-    @GetMapping("/user/friends")
+    @GetMapping("/user/friends/")
     public Map<String, Object> userFriends() {
         return null;
 
     }
 
     //查看某一个好友的信息
-    @GetMapping("/user/friend")
+    @GetMapping("/user/friend/")
     public Map<String, Object> userFriend(@RequestParam Map<String, Object> params) {
         return null;
     }
