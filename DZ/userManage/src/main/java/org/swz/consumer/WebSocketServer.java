@@ -34,6 +34,7 @@ public class WebSocketServer {
 
     @OnOpen
     public void OnOpen(Session session, @PathParam("token") String token) {
+
         this.session = session; //存储session
         System.out.println("建立连接");
         Integer userID = Integer.parseInt(token);
@@ -55,8 +56,10 @@ public class WebSocketServer {
         System.out.println("开始匹配");
         MatchPool.add(user);
         //如果大于2可以调用匹配系统
+        System.out.println(MatchPool.size());
 
         while(MatchPool.size() >=2){
+            System.out.println("可以匹配了");
             Iterator<User> it = MatchPool.iterator();
             User a = it.next(), b = it.next();
 
@@ -124,7 +127,6 @@ public class WebSocketServer {
             match();
         }
         else if("cancel-matching".equals(event)){
-
             StopMatch();
         }else if("move".equals(event)){
 

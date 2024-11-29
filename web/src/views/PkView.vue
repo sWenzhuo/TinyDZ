@@ -15,18 +15,21 @@ export default {
   setup(){
 
     const store = useStore();
-    const socketUrl = `ws://127.0.0.1:8081/websocket/1/`;
+    const socketUrl = `ws://localhost:8081/websocket/${store.state.user.userID}`;
     let socket = null;
 
 
     onMounted(()=>{
+
       //建立socket连接
       socket = new WebSocket(socketUrl);
+
       store.commit("UpdateSocket",socket);
       socket.onopen = () => {
         console.log("connected!");
         store.commit("updateSocket", socket);
       }
+
       //处理服务端接收过来的消息
       socket.onmessage = msg => {
         const data = JSON.parse(msg.data);
@@ -48,10 +51,13 @@ export default {
         console.log("disconnected!");
       }
     })
+
+
     onUnmounted(()=>{
-      //关闭socket连接
-      socket.close();
+      //关闭webscoket链接
+
       store.commit("UpdateStatus","start-matching");
+      socket.close();
 
     })
   }
