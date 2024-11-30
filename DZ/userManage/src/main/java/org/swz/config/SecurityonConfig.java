@@ -17,7 +17,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.swz.config.filter.JwtAuthenticationTokenFilter;
 import org.swz.service.acount.accountImpl.MyUserDetailsService;
-
 @Configuration
 @EnableWebSecurity
 public class SecurityonConfig extends WebSecurityConfigurerAdapter {
