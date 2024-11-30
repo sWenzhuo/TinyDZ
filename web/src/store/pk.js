@@ -3,7 +3,6 @@ const pk ={
         return{
             opponent_username:null,
             opponent_userphoto:null,
-            opponent_userintroduction:null,
             status:"start-matching",
             socket:null,
 
@@ -15,11 +14,9 @@ const pk ={
             state.socket = socket;
 
         },
-        UpdateOpponent(state,username,userphoto,userintroduction)
+        UpdateOpponent(state,username)
         {
             state.opponent_username=username;
-            state.opponent_userphoto=userphoto;
-            state.opponent_userintroduction = userintroduction;
         },
 
         UpdateStatus(state,status)

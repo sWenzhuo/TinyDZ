@@ -1,5 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module type="JAVA_MODULE" version="4">
+  <component name="FacetManager">
+    <facet type="JRebel" name="JRebel">
+      <configuration>
+        <option name="ideModuleStorage">
+          <map>
+            <entry key="com.zeroturnaround.jrebel.FormatVersion" value="7.0.0" />
+            <entry key="jrebelEnabled" value="true" />
+            <entry key="rebelXmlGenerationInvariantToken" value="PGFwcGxpY2F0aW9uIGdlbmVyYXRlZC1ieT0iaW50ZWxsaWoiPjxpZD5UaW55RFo8L2lkPjxjbGFzc3BhdGg+PGRpciBuYW1lPSJEOi9teXByb2plY3RzL1RpbnlEWi9vdXQvcHJvZHVjdGlvbi9UaW55RFoiPjwvZGlyPjwvY2xhc3NwYXRoPjwvYXBwbGljYXRpb24+" />
+          </map>
+        </option>
+        <option name="version" value="10" />
+      </configuration>
+    </facet>
+  </component>
   <component name="NewModuleRootManager" inherit-compiler-output="true">
     <exclude-output />
     <content url="file://$MODULE_DIR$" />

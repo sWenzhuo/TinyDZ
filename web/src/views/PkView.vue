@@ -5,6 +5,8 @@
 import MatchGround from "@/components/MatchGround.vue";
 import {useStore} from "vuex";
 import {onMounted, onUnmounted} from "vue";
+import router from "@/router";
+
 
 export default {
   name:"PkView",
@@ -33,17 +35,16 @@ export default {
       //处理服务端接收过来的消息
       socket.onmessage = msg => {
         const data = JSON.parse(msg.data);
+        console.log(data.opponent_username);
         if(data.event=="start_matching")
         {
-          store.commit('UpdateOpponent', {
-            username: data.opponent_username,
-            userphoto: " ",
-            userintroduction: data.opponent_userintroduction
-          });
+          store.commit('UpdateOpponent', data.opponent_username);
+          // userphoto:data.opponent_userphoto,
           setTimeout(()=>{
             store.commit("UpdateStatus","playing");
           },2000);
           console.log("开始游戏");
+          router.push("/snake")
         }
       }
 

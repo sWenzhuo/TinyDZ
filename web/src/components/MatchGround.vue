@@ -75,11 +75,13 @@ export default {
                 event: "cancel-matching"
               }
           ));
+          store.state.pk.op_username = null
+
           match_btn_info.value="开始匹配";
+
         }
 
       }
-      console.log(store.state.user.username);
       return {
         click_match_btn,
         match_btn_info,

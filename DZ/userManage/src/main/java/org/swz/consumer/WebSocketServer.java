@@ -1,6 +1,7 @@
 package org.swz.consumer;
 import com.alibaba.fastjson2.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Component;
 import org.swz.mapper.UserMapper;
 import org.swz.pojo.User;
@@ -33,13 +34,20 @@ public class WebSocketServer {
     }
 
     @OnOpen
-    public void OnOpen(Session session, @PathParam("token") String token) {
+    public void OnOpen(Session session, @PathParam("token") String token) throws IOException {
 
         this.session = session; //存储session
         System.out.println("建立连接");
         Integer userID = Integer.parseInt(token);
         User user = userMapper.selectById(userID);
-        sessionPool.put(userID, this);
+        this.user = user;
+        if(this.user!=null) {
+            sessionPool.put(user.getId(), this);
+        }
+        else{
+            this.session.close();
+        }
+        System.out.println(sessionPool);
 
     }
 
@@ -54,9 +62,8 @@ public class WebSocketServer {
 
     public void match(){
         System.out.println("开始匹配");
-        MatchPool.add(user);
-        //如果大于2可以调用匹配系统
-        System.out.println(MatchPool.size());
+        MatchPool.add(this.user);
+
 
         while(MatchPool.size() >=2){
             System.out.println("可以匹配了");
@@ -74,11 +81,12 @@ public class WebSocketServer {
             JSONObject respB=new JSONObject();
             respA.put("event","start_matching");
             respA.put("opponent_username",b.getUsername());
-            respA.put("opponent_userintroduction",b.getIntroduction());
+            respA.put("opponent_userphoto",b.getUserphoto());
+
 
             respB.put("event","start_matching");
             respB.put("opponent_username",a.getUsername());
-            respB.put("opponent_userintroduction",a.getIntroduction());
+            respB.put("opponent_userphoto",a.getUserphoto());
 
             WebSocketServer.sessionPool.get(a.getId()).sendMessage(respA.toJSONString());
             WebSocketServer.sessionPool.get(b.getId()).sendMessage(respB.toJSONString());
@@ -90,7 +98,7 @@ public class WebSocketServer {
         //异步通信
         synchronized (this.session){
             try{
-                this.session.getBasicRemote().sendText("发送消息");
+                this.session.getBasicRemote().sendText(message);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -122,6 +130,7 @@ public class WebSocketServer {
 
         JSONObject data = JSONObject.parseObject(message);
         String event = data.getString("event");
+        System.out.println(this.user);
 
         if("start-matching".equals(event)){
             match();
@@ -129,7 +138,6 @@ public class WebSocketServer {
         else if("cancel-matching".equals(event)){
             StopMatch();
         }else if("move".equals(event)){
-
             move(data.getInteger("direction"));
         }
     }
